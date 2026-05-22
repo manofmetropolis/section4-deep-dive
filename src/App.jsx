@@ -1,28 +1,23 @@
-import { CORE_CONCEPTS, EXAMPLES } from "./data";
-import Header from "./components/Header/Header";
-import CoreConcept from "./components/CoreConcept/CoreConcept";
-import TabButton from "./components/Example/TabButton";
 import { useState } from 'react';
 
+import { CORE_CONCEPTS } from './data.js';
+import Header from './components/Header/Header.jsx';
+import CoreConcept from './components/CoreConcept.jsx';
+import TabButton from './components/TabButton.jsx';
+import { EXAMPLES } from './data.js';
+
 function App() {
-  // useState called; must be at top level of component function. State is data stored by React which, when changed, signals that the app should be re-rendered.
-  // useState returns array: [current value for execution cycle, updated value]
-  // The second value is a function that is exeucted to update the state. It also tells React to do the function again.
-  // You can store to a variable; And the variable can be const, because it is recreated every time, not "changed."
-
   const [selectedTopic, setSelectedTopic] = useState();
-  // let tabContent = 'Click a button';
 
-  // Use a function for the value of onClick.
-  // Pretty typical naming convention here: handle + event (also, event + Handler)
   function handleSelect(selectedButton) {
     // selectedButton => 'components', 'jsx', 'props', 'state'
     setSelectedTopic(selectedButton);
-    console.log(selectedTopic); // If you log right after scheduling update, it won't appear correctly.
+    // console.log(selectedTopic);
   }
 
-  // Set tabContent dynamically
-  let tabContent = <p>Please select a topic</p>;
+  console.log('APP COMPONENT EXECUTING');
+
+  let tabContent = <p>Please select a topic.</p>;
 
   if (selectedTopic) {
     tabContent = (
@@ -33,9 +28,8 @@ function App() {
           <code>{EXAMPLES[selectedTopic].code}</code>
         </pre>
       </div>
-    )
+    );
   }
-  // End set tabContent dynamically
 
   return (
     <div>
@@ -46,31 +40,34 @@ function App() {
           <ul>
             {CORE_CONCEPTS.map((conceptItem) => (
               <CoreConcept key={conceptItem.title} {...conceptItem} />
-              ))}
+            ))}
           </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            {/* Create a function for what happens when the button is clicked */}
             <TabButton
               isSelected={selectedTopic === 'components'}
-              onSelect={() => handleSelect('components')}>
+              onSelect={() => handleSelect('components')}
+            >
               Components
             </TabButton>
             <TabButton
               isSelected={selectedTopic === 'jsx'}
-              onSelect={() => handleSelect('jsx')}>
+              onSelect={() => handleSelect('jsx')}
+            >
               JSX
             </TabButton>
             <TabButton
               isSelected={selectedTopic === 'props'}
-              onSelect={() => handleSelect('props')}>
+              onSelect={() => handleSelect('props')}
+            >
               Props
             </TabButton>
             <TabButton
               isSelected={selectedTopic === 'state'}
-              onSelect={() => handleSelect('state')}>
+              onSelect={() => handleSelect('state')}
+            >
               State
             </TabButton>
           </menu>
